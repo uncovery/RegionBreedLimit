@@ -1,0 +1,18 @@
+name: RegionBreedLimit
+main: us.azkedar.regionbreedlimit.RegionBreedLimit
+version: 2.2
+api-version: 1.13
+commands:
+  headcount:
+    description: Count current/max animals in this region
+    usage: /headcount
+  regionbreedlimit:
+    description: Toggle debugging or reload config for regionbreedlimit
+    usage: /regionbreedlimit [reload|debug]
+permissions:
+  regionbreedlimit.debug:
+    description: Allow toggling of debug output to console from regionbreedlimit
+    default: false
+  regionbreedlimit.reload:
+    description: Allow reloading of config for regionbreedlimit
+    default: false

@@ -1,0 +1,96 @@
+# Known spawn reasons....
+
+# BED               Deprecated. No longer used
+# BREEDING          When an animal breeds to create a child
+# BUILD_IRONGOLEM   When an iron golem is spawned by being built
+# BUILD_SNOWMAN     When a snowman is spawned by being built
+# CHUNK_GEN         When a creature spawns due to chunk generation
+# CUSTOM            When a creature is spawned by plugins
+# DEFAULT           When an entity is missing a SpawnReason
+# EGG               When a creature spawns from an egg
+# JOCKEY            When an entity spawns as a jockey of another entity (mostly spider jockeys)
+# LIGHTNING         When a creature spawns because of a lightning strike
+# NATURAL           When something spawns from natural means
+# SLIME_SPLIT       When a slime splits
+# SPAWNER           When a creature spawns from a spawner
+# SPAWNER_EGG       When a creature spawns from a Spawner Egg
+# VILLAGE_DEFENSE   When an iron golem is spawned to defend a village
+# VILLAGE_INVASION  When a zombie is spawned to invade a village
+# all               Not part of the bukkit API, prevents spawns regardless of reason
+
+# debug:              If true, provide debug output to console, including location of animals
+# message_radius:     Radius of spawn events to send messages to, if defined (see below)
+# rules:              This part contains spawning rules
+#  some_rule_foo:     This part is ANY ARBITRARY NAME you want for each breeding rule.
+#    worlds:          List of worlds this rule apples to.  If this is not provided, the 
+#                       rule applies everywhere.
+#    region:          "true" if this rule should count by regions.  Otherwise uses chunks.
+#                       Note: region rules cannot be applied in worlds with no regions!
+#    headcount:       If true allow /headcount to give information on this limit
+#    entities:        List of entities to be affected by this limit. 
+#    reasons:         List of spawning reasons (see above) to be affected by this limit. If
+#                       this is not provided, the rule applies to all spawning, even natural.
+#    count:           The total count (sum for all entities in this rule) allowed
+#    message:         A message to send to nearby players when this rule prevents spawning.
+
+# NOTE: If for whatever reason a mob spawn event is covered by more than one limit in a world,
+# the effective limit is the first to be reached, e.g., the most restrictive of the two.
+
+debug: false
+message_radius: 10
+rules:
+  # In all worlds, limit the sum of all animals per region to 50 for breeding and spawn eggs
+  region_breeding:
+    region: true
+    headcount: true
+    entities: 
+      - chicken
+      - sheep
+      - pig
+      - cow
+    reasons: 
+      - egg
+      - spawner_egg
+      - breeding 
+    message: Mooo! Too many animals!
+    count: 50
+  # In darklands & nether, limit the sum to 10 per chunk for breeding and spawn eggs
+  chunk_breeding:
+    worlds: 
+      - darklands
+      - nether
+      - test
+    headcount: true
+    entities: 
+      - chicken
+      - sheep
+      - pig
+      - cow
+    reasons: 
+      - egg
+      - spawner_egg
+      - breeding 
+    message: Mooo! Too many animals!
+    count: 10
+  # In all worlds, limit hostile mobs spawning from a mob spawner
+  spawners:
+    region: true
+    entities: 
+      - skeleton
+      - spider
+      - cave_spider
+      - zombie
+      - blaze
+    reasons: 
+      - spawner
+    count:  100
+  # In all worlds, prevent (limit to 0) all spawning of wither, iron_golem, and snow_golem
+  no_withers_or_golems:
+    entities: 
+      - witherboss
+      - villagergolem
+      - snowman
+    message: Those dark magicks are forbidden!
+    count: 0
+
+    
