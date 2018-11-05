@@ -7,48 +7,17 @@
   <version>2.2</version>
   <name>RegionBreedLimit</name>
   <url>http://uncovery.me/</url>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+  </properties>    
+  
   <build>
-    <sourceDirectory>${basedir}/RegionBreedLimit/src</sourceDirectory>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <version>2.0.2</version>
-        <configuration>
-          <source>1.8</source>
-          <target>1.8</target>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-jar-plugin</artifactId>
-        <version>2.3.1</version>
-        <executions>
-          <execution>
-            <id>Publish</id>
-            <goals>
-              <goal>jar</goal>
-            </goals>
-            <configuration>
-              <outputDirectory>${basedir}/bin/</outputDirectory>
-              <finalName>${project.name}</finalName>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
-    </plugins>
-    <resources>
-      <resource>
-        <targetPath>.</targetPath>
-        <filtering>true</filtering>
-        <directory>${basedir}/RegionBreedLimit</directory>
-        <includes>
-          <include>plugin.yml</include>
-          <include>config.yml</include>
-        </includes>
-      </resource>
-    </resources>  </build>
-    <repositories>
+    <sourceDirectory>${basedir}/src/main/java</sourceDirectory>
+  </build>
+  <repositories>
     <repository>
         <id>sk89q-repo</id>
         <url>http://maven.sk89q.com/repo/</url>
