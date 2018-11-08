@@ -31,8 +31,11 @@ public class BreederListener implements Listener {
        }
     }
     
-    public boolean checkCancel(Entity entity,Location loc,SpawnReason reason) {
-        //basePlugin.getLogger().info("Spawn event detected");
+    public boolean checkCancel(Entity entity, Location loc,SpawnReason reason) {
+        if(basePlugin.debug) {
+            basePlugin.getLogger().info("Spawn event of " + entity.toString() + " detected, reason:" + reason);
+        }
+
         for(Rule rule : basePlugin.rules) {
 
             if (!rule.checkLocation(loc)) continue; 
@@ -48,13 +51,15 @@ public class BreederListener implements Listener {
                 if (rule.message != null && !rule.message.isEmpty()) {
                     int radius = basePlugin.messageRadius;
                     basePlugin.getLogger().info(entity.getLocation().toString());
-                    for(Entity nearby : entity.getNearbyEntities(radius, radius, radius)) {
-                        if((nearby instanceof Player)) {
+                    for (Entity nearby : entity.getNearbyEntities(radius, radius, radius)) {
+                        if ((nearby instanceof Player)) {
                             ((Player) nearby).sendMessage(ChatColor.RED + rule.message);
                         }
                     }
                 };
                 return true;
+            } else if(basePlugin.debug) {       
+                basePlugin.getLogger().info("Allowing spawn (" + count + " found / " + rule.count + " allowed)");
             }
         }
         return false;

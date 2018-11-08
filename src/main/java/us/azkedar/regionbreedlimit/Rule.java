@@ -51,7 +51,8 @@ public class Rule {
     public boolean configCheck(List<String> list, String name, String label) {
         if(!list.isEmpty() && !containsIgnoreCase(list, name)) {
             if(basePlugin.debug) {
-                //log(label + " check: " + name + " not in " + basePlugin.join(list));
+                // basePlugin.getLogger().info("Checking config" + entityTypeName);
+                // log(label + " check: " + name + " not in " + basePlugin.join(list));
             }
             return false;
         }
@@ -89,8 +90,13 @@ public class Rule {
     }
     
     public boolean checkEntityType(Entity ent) {
-        String entityTypeName = ent.getType().getName();
-        return configCheck(entities,entityTypeName,"Entity type");
+        String entityTypeName = ent.getType().toString();
+        if(basePlugin.debug) {
+            basePlugin.getLogger().info("Rule Checking Entity Type" + entityTypeName);
+        }     
+        
+        Boolean confcheck = configCheck(entities,entityTypeName,"Entity type");
+        return confcheck;
     }
     
     public int getCount(Location loc) {
